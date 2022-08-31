@@ -8,8 +8,15 @@ import {
 import { useField } from '@unform/core';
 
 import { Container } from './styles';
+import { IconType } from 'react-icons';
 
-const Input = ({ name, icon: Icon, ...rest }) => {
+interface InputProps {
+  placeholder: string;
+  name: string;
+  icon?: IconType;
+}
+
+const Input = ({ name, icon: Icon, ...props }: InputProps) => {
   const inputRef = useRef(null);
 
   const [isFocused, setIsFocused] = useState(false);
@@ -24,7 +31,9 @@ const Input = ({ name, icon: Icon, ...rest }) => {
   const handleInputBlur = useCallback(() => {
     setIsFocused(false);
 
-    setIsFilled(!!inputRef.current?.value);
+    console.log(inputRef.current);
+
+    setIsFilled(!!inputRef.current);
   }, []);
 
   useEffect(() => {
@@ -44,7 +53,7 @@ const Input = ({ name, icon: Icon, ...rest }) => {
         onBlur={handleInputBlur}
         defaultValue={defaultValue}
         ref={inputRef}
-        {...rest}
+        {...props}
       />
     </Container>
   );
